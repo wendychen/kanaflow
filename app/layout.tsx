@@ -1,9 +1,22 @@
 import { Analytics } from '@vercel/analytics/next'
+import { Noto_Sans_JP, Noto_Serif_JP } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-noto-sans-jp',
+})
+
+const notoSerifJP = Noto_Serif_JP({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-noto-serif-jp',
+})
+
 export const metadata: Metadata = {
-  title: 'ことばの森 — Kana Practice',
+  title: 'ことばの森 — 五十音の練習',
   description: 'ひらがなとカタカナを、毎日少しずつ練習しよう。',
   generator: 'v0.app',
   icons: {
@@ -40,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className="antialiased">
+      <body className={`${notoSansJP.variable} ${notoSerifJP.variable} antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
