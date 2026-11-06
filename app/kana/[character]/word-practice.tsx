@@ -23,6 +23,7 @@ export default function WordPractice({ character }: { character: string }) {
   const [celebration, setCelebration] = useState('')
   const [audioMessage, setAudioMessage] = useState('')
   const correctWords = useRef(new Set<number>())
+  const answerInputRefs = useRef<Array<HTMLInputElement | null>>([])
   const celebrationTimer = useRef<number | null>(null)
   const correctCount = Object.values(results).filter((result) => result === 'correct').length
 
@@ -126,6 +127,9 @@ export default function WordPractice({ character }: { character: string }) {
                       </button>
                       <label htmlFor={inputId} className="sr-only">「{word.kana}」のローマ字</label>
                       <input
+                        ref={(input) => {
+                          answerInputRefs.current[index] = input
+                        }}
                         id={inputId}
                         type="text"
                         value={answers[index] ?? ''}
@@ -142,6 +146,7 @@ export default function WordPractice({ character }: { character: string }) {
                           if (event.key !== 'Enter' || event.nativeEvent.isComposing || event.keyCode === 229) return
                           event.preventDefault()
                           checkAnswer(index)
+                          answerInputRefs.current[index + 1]?.focus()
                         }}
                         onBlur={() => checkAnswer(index)}
                         readOnly={result === 'correct'}
