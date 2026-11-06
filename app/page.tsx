@@ -1,7 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, Flame, RotateCcw, Sparkles, Volume2, VolumeX, X } from 'lucide-react'
+import { BookOpen, Check, Flame, RotateCcw, Sparkles, Volume2, VolumeX, X } from 'lucide-react'
 
 type Kana = [character: string, reading: string]
 type KanaGroup = { label: string; kana: Kana[] }
@@ -180,6 +181,7 @@ export default function Page() {
     <div className="mx-auto flex min-h-screen w-full max-w-[720px] flex-col px-4 pb-8 pt-5 sm:px-7">
       <header className="flex items-center justify-between"><div className="flex items-center gap-3"><div className="relative grid size-11 place-items-center rounded-[15px] bg-[#be3a2e] text-2xl text-[#fff8e8] shadow-[0_5px_0_#8d2923]">あ<span className="absolute -right-1 -top-1 size-2 rounded-full bg-[#e7b33b]" /></div><div><p className="font-serif text-[19px] font-semibold tracking-tight">ことばの森</p><p className="text-[11px] tracking-[0.18em] text-[#887b70]">かなの練習</p></div></div><div className="flex items-center gap-2 rounded-full border border-[#dfd2bf] bg-[#fffaf0]/75 px-3 py-2 text-sm font-semibold"><Flame className="size-4 fill-[#d98c3f] text-[#d98c3f]" /> {streak}日</div></header>
       <section className="mt-8"><div className="flex items-end justify-between gap-4"><div><p className="mb-1 text-xs font-semibold tracking-[0.15em] text-[#be3a2e]">今日の練習</p><h1 className="font-serif text-[31px] font-semibold leading-tight">{practiceSet.length}文字を、100回<br />なぞってみよう</h1></div><div className="pb-1 text-right"><p className="text-2xl font-semibold">{completedCount}<span className="text-sm text-[#9c8d80]"> / 100</span></p><p className="text-[11px] text-[#887b70]">できたマス</p></div></div><div className="mt-5 h-2 overflow-hidden rounded-full bg-[#e7dac8]"><div className="h-full rounded-full bg-[#be3a2e] transition-all" style={{ width: `${completedCount}%` }} /></div><p className="mt-2 text-xs text-[#887b70]">{practiceSet.map(([character]) => character).join(' ・ ')} の順番をランダムに練習中</p></section>
+      <div className="mt-4 flex justify-end"><Link href="/gojuon" className="inline-flex items-center gap-2 rounded-full border border-[#e5d8c5] bg-[#fffaf0] px-3 py-2 text-xs font-semibold text-[#be3a2e] transition hover:bg-[#f5eadb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#be3a2e]"><BookOpen className="size-4" aria-hidden="true" />五十音表を見る</Link></div>
       <div className="mt-6 grid grid-cols-2 rounded-xl bg-[#e9dfcf] p-1.5" role="tablist" aria-label="文字の種類">{(['ひらがな', 'カタカナ'] as const).map((item) => <button key={item} role="tab" aria-selected={script === item} onClick={() => { setScript(item); setGroupIndex(0); setCompleted(new Set()); setShowWin(false) }} className={`rounded-lg py-2.5 text-sm font-semibold transition-all ${script === item ? 'bg-[#fffaf0] text-[#be3a2e] shadow-sm' : 'text-[#897b6d]'}`}>{item}</button>)}</div>
       <section className="mt-4 rounded-2xl border border-[#e8dac5] bg-[#efe4d2]/70 p-3">
         <div className="mb-2 flex items-center justify-between gap-3">
