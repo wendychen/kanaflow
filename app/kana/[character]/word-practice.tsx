@@ -144,7 +144,7 @@ export default function WordPractice({ character }: { character: string }) {
                           checkAnswer(index)
                         }}
                         onBlur={() => checkAnswer(index)}
-                        disabled={result === 'correct'}
+                        readOnly={result === 'correct'}
                         aria-invalid={result === 'incorrect'}
                         aria-describedby={feedbackId}
                         autoCapitalize="none"
